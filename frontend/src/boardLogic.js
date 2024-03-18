@@ -1,3 +1,9 @@
+export const DIFFICULTIES = {
+  EASY: { height: 8, width: 10, numberOfBombs: 5 },
+  MEDIUM: { height: 14, width: 18, numberOfBombs: 20 },
+  HARD: { height: 20, width: 24, numberOfBombs: 100 },
+};
+
 /**
  * @param {object} options - Options hash containing board deminsions
  * @param {number} options.height - Number of rows
@@ -44,8 +50,6 @@ export function placeBombs(r, c, board, numBombs) {
   //         pick random card around that one which is NOT yet in safe coords
   const safeCoords = getSafeCoords(board, r, c);
   const bombCoords = getBombCoords(board, numBombs, safeCoords);
-  console.log(safeCoords);
-  console.log(bombCoords);
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[0].length; c++) {
       board[r][c] = bombCoords.has(`${r},${c}`) ? "M" : "_";
@@ -68,6 +72,12 @@ function getSafeCoords(board, r, c) {
   const max = area * maxRatio;
   const min = area * minRatio;
   const numSafe = Math.floor(Math.random() * (max - min) + min);
+  const initialSurroundings = getSurroundingSquares(
+    Number(r),
+    Number(c),
+    board
+  );
+  initialSurroundings.forEach(([row, col]) => safeCoords.add(`${row},${col}`));
 
   safeCoords.add(`${r},${c}`);
 
@@ -133,4 +143,58 @@ export function getSurroundingSquares(r, c, board) {
     }
   }
   return sqrs;
+}
+
+/**
+ * @param {number} r - row
+ * @param {number} c - col
+ * @param {number[][]} board - game board
+ * @return {void}
+ */
+export function numMinesAround(r, c, board) {
+  return getSurroundingSquares(r, c, board).reduce((acc, [x, y]) => {
+    return acc + Number(board[x][y] == "M" || board[x][y] == "MF");
+  }, 0);
+}
+
+/**
+ * @param {number} r - row
+ * @param {number} c - col
+ * @param {number[][]} board - game board
+ * @return {void}
+ */
+export function revealEmptyAreaAroundClick(r, c, board) {
+  if (board[r][c].startsWith("_")) {
+    const mines = numMinesAround(r, c, board);
+    if (mines > 0) {
+      board[r][c] = String(mines);
+    } else {
+      board[r][c] = "0";
+      for (const [x, y] of getSurroundingSquares(r, c, board)) {
+        revealEmptyAreaAroundClick(x, y, board);
+      }
+    }
+  }
+}
+
+export function isGameOver(board) {
+  let won = true;
+  for (let r = 0; r < board.length; r++) {
+    for (let c = 0; c < board[0].length; c++) {
+      if (board[r][c] === "X") return "lose";
+      if (board[r][c] === "_" || board[r][c] === "_F") won = false;
+    }
+  }
+  return won ? "win" : null;
+}
+
+export function countFlagsRemaining(board, difficulty) {
+  return (
+    DIFFICULTIES[difficulty].numberOfBombs -
+    board.reduce((acc, row) => {
+      return (
+        acc + row.reduce((count, val) => count + Number(val.length > 1), 0)
+      );
+    }, 0)
+  );
 }

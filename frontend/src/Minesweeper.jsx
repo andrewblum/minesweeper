@@ -1,35 +1,13 @@
-import { useState, useEffect } from "react";
-import { makeBoard } from "./boardFactory.js";
+import { useState, useEffect, useRef} from "react";
+import {
+  makeBoard,
+  isGameOver,
+  countFlagsRemaining,
+  DIFFICULTIES,
+} from "./boardLogic.js";
 import { Menubar } from "./Menubar.jsx";
 import { Gameboard } from "./Gameboard.jsx";
-
-const DIFFICULTIES = {
-  EASY: { height: 8, width: 10, numberOfBombs: 5 },
-  MEDIUM: { height: 14, width: 18, numberOfBombs: 20 },
-  HARD: { height: 20, width: 24, numberOfBombs: 100 },
-};
-
-function isGameOver(board) {
-  let won = true;
-  for (let r = 0; r < board.length; r++) {
-    for (let c = 0; c < board[0].length; c++) {
-      if (board[r][c] === "X") return "lose";
-      if (board[r][c] === "_" || board[r][c] === "_F") won = false;
-    }
-  }
-  return won ? "win" : null;
-}
-
-function countFlagsRemaining(board, difficulty) {
-  return (
-    DIFFICULTIES[difficulty].numberOfBombs -
-    board.reduce((acc, row) => {
-      return (
-        acc + row.reduce((count, val) => count + Number(val.length > 1), 0)
-      );
-    }, 0)
-  );
-}
+import { Flex, Text, Button } from "@radix-ui/themes";
 
 export function Minesweeper() {
   const [board, setBoard] = useState(makeBoard(DIFFICULTIES.EASY));
@@ -38,20 +16,9 @@ export function Minesweeper() {
   const [gameStarted, setGameStarted] = useState(false);
   const gameOver = isGameOver(board);
   const flagsRemaining = countFlagsRemaining(board, difficulty);
+  const timerRef = useRef()
 
-  useEffect(() => {
-    let id;
-    if (gameStarted) {
-      setTime(0);
-      id = setInterval(() => {
-        setTime((time) => time + 1);
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(id);
-    };
-  }, [gameStarted]);
+  if (gameOver) clearInterval(timerRef.current);
 
   // # start the timer when gamestarted is set to true
   // # reset the timer when gamestarted is set to false
@@ -61,14 +28,15 @@ export function Minesweeper() {
   // game in progress                             gameStarted TRUE
   // game thats over, no further moves allowed    gameOver === win/lose
 
-  function changeDifficulty(e) {
-    setDifficulty(e.target.value);
+  function changeDifficulty(dif) {
+    setDifficulty(dif);
     setGameStarted(false);
-    setBoard(makeBoard(DIFFICULTIES[e.target.value]));
+    setBoard(makeBoard(DIFFICULTIES[dif]));
   }
 
   function handleReset(e) {
     setGameStarted(false);
+    setTime(0);
     setBoard(makeBoard(DIFFICULTIES[difficulty]));
   }
 
@@ -86,6 +54,8 @@ export function Minesweeper() {
         gameStarted={gameStarted}
         setGameStarted={setGameStarted}
         numBombs={DIFFICULTIES[difficulty].numberOfBombs}
+        timerRef={timerRef}
+        setTime={setTime}
       />
       {gameOver && (
         <EndGameModal handleReset={handleReset} gameOver={gameOver} />
@@ -97,8 +67,11 @@ export function Minesweeper() {
 function EndGameModal({ gameOver, handleReset }) {
   return (
     <div>
-      You {gameOver} {gameOver === "win" ? "😁" : "😿"}
-      <button onClick={handleReset}> reset </button>
+      <Text>
+        {" "}
+        You {gameOver} {gameOver === "win" ? "😁" : "😿"}{" "}
+      </Text>
+      <Button onClick={handleReset}> Reset </Button>
     </div>
   );
 }

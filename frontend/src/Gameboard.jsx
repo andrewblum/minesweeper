@@ -1,4 +1,5 @@
-import { getSurroundingSquares, placeBombs } from "./boardFactory";
+import { placeBombs, revealEmptyAreaAroundClick } from "./boardLogic";
+
 
 function GameboardCell({ value, onClick }) {
   let display = "📦";
@@ -32,39 +33,27 @@ export function Gameboard({
   gameStarted,
   setGameStarted,
   numBombs,
+  setTime,
+  timerRef
 }) {
   function handleCellClick(e, r, c, board, setBoard) {
-    function numMinesAround(r, c, board) {
-      return getSurroundingSquares(r, c, board).reduce((acc, [x, y]) => {
-        return acc + Number(board[x][y] == "M" || board[x][y] == "MF");
-      }, 0);
-    }
-
-    function dfs(r, c, board) {
-      if (board[r][c].startsWith("_")) {
-        const mines = numMinesAround(r, c, board);
-        if (mines > 0) {
-          board[r][c] = String(mines);
-        } else {
-          board[r][c] = "0";
-          for (const [x, y] of getSurroundingSquares(r, c, board)) {
-            dfs(x, y, board);
-          }
-        }
-      }
-    }
-
     let boardCopy = JSON.parse(JSON.stringify(board));
     if (!gameStarted) {
       boardCopy = placeBombs(r, c, boardCopy, numBombs);
       setGameStarted(true);
+      setTime(0);
+      timerRef.current = setInterval(() => {
+          setTime((time) => time + 1);
+        }, 1000);
     }
     if (e.type === "contextmenu") {
+      // click is a RIGHT CLICK, place a flag if able
       handlePlaceFlag(e, r, c, boardCopy);
     } else if (boardCopy[r][c] === "M" || boardCopy[r][c] === "MF") {
+      // clicked on a bomb :(
       boardCopy[r][c] = "X";
     } else {
-      dfs(r, c, boardCopy);
+      revealEmptyAreaAroundClick(r, c, boardCopy);
     }
     setBoard(boardCopy);
   }

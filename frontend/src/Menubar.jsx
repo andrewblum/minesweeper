@@ -1,17 +1,12 @@
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { Button } from "@radix-ui/themes";
+import { CaretDownIcon, DotFilledIcon } from "@radix-ui/react-icons";
+
 export function Menubar({ flags, time, difficulty, changeDifficulty }) {
   return (
     <div>
-      <select
-        value={difficulty}
-        name="difficulty"
-        id="difficultypulldown"
-        onChange={changeDifficulty}
-      >
-        <option value="EASY">Easy</option>
-        <option value="MEDIUM">Medium</option>
-        <option value="HARD">Hard</option>
-      </select>{" "}
-      Flags: {flags} Time: {time}
+      Flags: {flags}
+      Time: {time}
     </div>
   );
 }
