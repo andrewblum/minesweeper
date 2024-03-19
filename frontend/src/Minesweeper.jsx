@@ -4,7 +4,7 @@ import {
   isGameOver,
   countFlagsRemaining,
   DIFFICULTIES,
-} from "./boardLogic.js";
+} from "./gameLogic.js";
 import { Menubar } from "./Menubar.jsx";
 import { Gameboard } from "./Gameboard.jsx";
 import { EndGameModal } from "./EndGameModal.jsx"
@@ -18,7 +18,6 @@ export function Minesweeper() {
   const gameOver = isGameOver(board);
   const flagsRemaining = countFlagsRemaining(board, difficulty);
   const timerRef = useRef()
-
   if (gameOver) clearInterval(timerRef.current);
 
   // new game , not yet started , no click        gameStarted FALSE

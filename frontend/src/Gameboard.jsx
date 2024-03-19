@@ -1,4 +1,4 @@
-import { placeBombs, revealEmptyAreaAroundClick } from "./boardLogic";
+import { placeBombs, revealEmptyAreaAroundClick } from "./gameLogic.js";
 
 
 function GameboardCell({ value, onClick }) {
