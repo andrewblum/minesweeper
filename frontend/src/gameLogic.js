@@ -1,5 +1,5 @@
 export const DIFFICULTIES = {
-  EASY: { height: 8, width: 10, numberOfBombs: 10 },
+  EASY: { height: 8, width: 10, numberOfBombs: 5 },
   MEDIUM: { height: 14, width: 18, numberOfBombs: 40 },
   HARD: { height: 20, width: 24, numberOfBombs: 100 },
 };
