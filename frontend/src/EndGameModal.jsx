@@ -22,7 +22,7 @@ export function EndGameModal({ gameOver, handleReset, time }) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={handleReset}>Reset</AlertDialogAction>
+            <AlertDialogAction onClick={handleReset}>Try Again</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

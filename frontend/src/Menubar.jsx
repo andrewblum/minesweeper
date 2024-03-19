@@ -27,9 +27,8 @@ export function Menubar({ flags, time, changeDifficulty }) {
           <SelectItem value="HARD">Hard</SelectItem>
         </SelectContent>
       </Select>
-      Flags: {flags}
-      Time: {time}
-
+      ⛳️ {flags}
+      ⏱️ {time}
       <Popover>
         <PopoverTrigger>
           <GearIcon/>
