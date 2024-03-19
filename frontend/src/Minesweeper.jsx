@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef} from "react";
+import { useState, useRef} from "react";
 import {
   makeBoard,
   isGameOver,
@@ -7,7 +7,8 @@ import {
 } from "./boardLogic.js";
 import { Menubar } from "./Menubar.jsx";
 import { Gameboard } from "./Gameboard.jsx";
-import { Flex, Text, Button } from "@radix-ui/themes";
+import { EndGameModal } from "./EndGameModal.jsx"
+
 
 export function Minesweeper() {
   const [board, setBoard] = useState(makeBoard(DIFFICULTIES.EASY));
@@ -20,10 +21,6 @@ export function Minesweeper() {
 
   if (gameOver) clearInterval(timerRef.current);
 
-  // # start the timer when gamestarted is set to true
-  // # reset the timer when gamestarted is set to false
-  // # freeze or somehow record the timer when gameOver is lose or win
-
   // new game , not yet started , no click        gameStarted FALSE
   // game in progress                             gameStarted TRUE
   // game thats over, no further moves allowed    gameOver === win/lose
@@ -31,6 +28,8 @@ export function Minesweeper() {
   function changeDifficulty(dif) {
     setDifficulty(dif);
     setGameStarted(false);
+    setTime(0);
+    clearInterval(timerRef.current)
     setBoard(makeBoard(DIFFICULTIES[dif]));
   }
 
@@ -45,7 +44,6 @@ export function Minesweeper() {
       <Menubar
         flags={flagsRemaining}
         time={time}
-        difficulty={difficulty}
         changeDifficulty={changeDifficulty}
       />
       <Gameboard
@@ -58,20 +56,9 @@ export function Minesweeper() {
         setTime={setTime}
       />
       {gameOver && (
-        <EndGameModal handleReset={handleReset} gameOver={gameOver} />
+        <EndGameModal handleReset={handleReset} gameOver={gameOver} time={time}/>
       )}
     </div>
   );
 }
 
-function EndGameModal({ gameOver, handleReset }) {
-  return (
-    <div>
-      <Text>
-        {" "}
-        You {gameOver} {gameOver === "win" ? "😁" : "😿"}{" "}
-      </Text>
-      <Button onClick={handleReset}> Reset </Button>
-    </div>
-  );
-}

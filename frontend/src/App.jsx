@@ -1,10 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import '@radix-ui/themes/styles.css';
 import './App.css'
 import { Minesweeper } from './Minesweeper.jsx';
-import { Theme, ThemePanel } from '@radix-ui/themes';
+import { Theme } from '@radix-ui/themes';
 
 
 function App() {
