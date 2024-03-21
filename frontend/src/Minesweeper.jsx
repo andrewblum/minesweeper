@@ -36,14 +36,16 @@ export function Minesweeper() {
     setGameStarted(false);
     setTime(0);
     setBoard(makeBoard(DIFFICULTIES[difficulty]));
+    clearInterval(timerRef.current);
   }
 
   return (
-    <div>
+    <div class="flex flex-col justify-center content-center border-4 rounded-xl">
       <Menubar
         flags={flagsRemaining}
         time={time}
         changeDifficulty={changeDifficulty}
+        handleReset={handleReset}
       />
       <Gameboard
         board={board}

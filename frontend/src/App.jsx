@@ -7,10 +7,7 @@ import { Theme } from '@radix-ui/themes';
 function App() {
   return (
     <>
-      <Theme>
-        <div>
-          <h1 className="text-3xl font-bold underline">Minesweeper</h1>
-        </div>
+      <Theme className="flex flex-col justify-center items-center">
         <Minesweeper/>
       </Theme>
     </>
