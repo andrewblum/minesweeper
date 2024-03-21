@@ -1,4 +1,4 @@
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 import {
   makeBoard,
   isGameOver,
@@ -7,8 +7,8 @@ import {
 } from "./gameLogic.js";
 import { Menubar } from "./Menubar.jsx";
 import { Gameboard } from "./Gameboard.jsx";
-import { EndGameModal } from "./EndGameModal.jsx"
-
+import { EndGameModal } from "./EndGameModal.jsx";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export function Minesweeper() {
   const [board, setBoard] = useState(makeBoard(DIFFICULTIES.EASY));
@@ -17,7 +17,7 @@ export function Minesweeper() {
   const [gameStarted, setGameStarted] = useState(false);
   const gameOver = isGameOver(board);
   const flagsRemaining = countFlagsRemaining(board, difficulty);
-  const timerRef = useRef()
+  const timerRef = useRef();
   if (gameOver) clearInterval(timerRef.current);
 
   // new game , not yet started , no click        gameStarted FALSE
@@ -28,7 +28,7 @@ export function Minesweeper() {
     setDifficulty(dif);
     setGameStarted(false);
     setTime(0);
-    clearInterval(timerRef.current)
+    clearInterval(timerRef.current);
     setBoard(makeBoard(DIFFICULTIES[dif]));
   }
 
@@ -40,7 +40,7 @@ export function Minesweeper() {
   }
 
   return (
-    <div class="flex flex-col justify-center content-center border-4 rounded-xl">
+    <div className="flex flex-col justify-center content-center border-4 rounded-xl relative">
       <Menubar
         flags={flagsRemaining}
         time={time}
@@ -57,9 +57,18 @@ export function Minesweeper() {
         setTime={setTime}
       />
       {gameOver && (
-        <EndGameModal handleReset={handleReset} gameOver={gameOver} time={time}/>
+        <EndGameModal
+          handleReset={handleReset}
+          gameOver={gameOver}
+          time={time}
+        />
       )}
+
+      <div className="absolute -top-[16px] right-[-16px] rotate-[-15deg] rounded-full bg-white border-2 hover:rotate-0 transition-all">
+        <a href="https://github.com/andrewblum/minesweeper" target="_blank">
+          <GitHubLogoIcon width="32" height="32" />
+        </a>
+      </div>
     </div>
   );
 }
-
