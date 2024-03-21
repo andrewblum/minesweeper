@@ -1,3 +1,3 @@
 # Minesweeper 
 
-Minesweeper in React using Radix and Tailwind. 
+Minesweeper in React using Vite, Radix, and Tailwind. 
