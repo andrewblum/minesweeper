@@ -9,9 +9,15 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const formatSeconds = (s) => {
-  const date = new Date(0);
-  date.setSeconds(s);
-  return date.toISOString().substring(11, 19);
+  const totalSecs = Number(s);
+  const hours = Math.floor(totalSecs / 3600);
+  const minutes = Math.floor(totalSecs / 60) % 60;
+  const seconds = totalSecs % 60;
+
+  return [hours, minutes, seconds]
+    .map((time) => (time < 10 ? "0" + time : time))
+    .filter((time, idx) => time !== "00" || idx > 0)
+    .join(":");
 };
 
 export function EndGameModal({ gameOver, handleReset, time, difficulty }) {
