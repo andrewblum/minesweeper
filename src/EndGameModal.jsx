@@ -44,11 +44,7 @@ export function EndGameModal({ gameOver, handleReset, time, difficulty }) {
                   </span>
                 </div>
                 <div>
-                  {time <= bestTime
-                    ? `You ${
-                        time < bestTime ? "beat" : "matched"
-                      } your previous record of `
-                    : "Your best time is "}
+                  Your best time is{" "}
                   <span className="font-bold text-green-800">
                     {formatSeconds(bestTime)}
                   </span>
