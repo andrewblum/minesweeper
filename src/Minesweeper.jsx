@@ -32,7 +32,7 @@ export function Minesweeper() {
     setBoard(makeBoard(DIFFICULTIES[dif]));
   }
 
-  function handleReset(e) {
+  function handleReset() {
     setGameStarted(false);
     setTime(0);
     setBoard(makeBoard(DIFFICULTIES[difficulty]));
@@ -61,6 +61,7 @@ export function Minesweeper() {
           handleReset={handleReset}
           gameOver={gameOver}
           time={time}
+          difficulty={difficulty}
         />
       )}
 

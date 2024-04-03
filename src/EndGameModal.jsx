@@ -14,13 +14,13 @@ const formatSeconds = (s) => {
   return date.toISOString().substring(11, 19);
 };
 
-export function EndGameModal({ gameOver, handleReset, time }) {
-  let bestTime = localStorage.getItem("bestMineSweeperTime");
-  bestTime ??= 0;
-  if (gameOver === "win" && (bestTime === 0 || time < bestTime)) {
-    localStorage.setItem("bestMineSweeperTime", time);
-    bestTime = time;
+export function EndGameModal({ gameOver, handleReset, time, difficulty }) {
+  const bestTime = localStorage.getItem(`bestMinesweeperTime:${difficulty}`);
+
+  if (gameOver === "win" && (!bestTime || time < Number(bestTime))) {
+    localStorage.setItem(`bestMinesweeperTime:${difficulty}`, time);
   }
+
   return (
     <AlertDialog defaultOpen>
       <AlertDialogContent>
@@ -28,9 +28,9 @@ export function EndGameModal({ gameOver, handleReset, time }) {
           <AlertDialogTitle>
             You {gameOver} {gameOver === "win" ? "😁" : "😿"}
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription asChild>
             {gameOver === "win" && (
-              <>
+              <div>
                 <div>
                   Your time was{" "}
                   <span className="font-bold text-green-600">
@@ -38,12 +38,16 @@ export function EndGameModal({ gameOver, handleReset, time }) {
                   </span>
                 </div>
                 <div>
-                  Your best time is{" "}
-                  <span className="font-bold text-green-600">
+                  {time <= bestTime
+                    ? `You ${
+                        time < bestTime ? "beat" : "matched"
+                      } your previous record of `
+                    : "Your best time is "}
+                  <span className="font-bold text-green-800">
                     {formatSeconds(bestTime)}
                   </span>
                 </div>
-              </>
+              </div>
             )}
           </AlertDialogDescription>
         </AlertDialogHeader>
