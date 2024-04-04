@@ -7,24 +7,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-
-const formatSeconds = (s) => {
-  const totalSecs = Number(s);
-  const hours = Math.floor(totalSecs / 3600);
-  const minutes = Math.floor(totalSecs / 60) % 60;
-  const seconds = totalSecs % 60;
-
-  return [hours, minutes, seconds]
-    .map((time) => (time < 10 ? "0" + time : time))
-    .filter((time, idx) => time !== "00" || idx > 0)
-    .join(":");
-};
+import useLocalStorage from "./hooks/useLocalStorage";
+import { formatSeconds } from "./time";
 
 export function EndGameModal({ gameOver, handleReset, time, difficulty }) {
-  const bestTime = localStorage.getItem(`bestMinesweeperTime:${difficulty}`);
+  const [bestTime, setBestTime] = useLocalStorage(
+    `bestMinesweeperTime:${difficulty}`
+  );
 
-  if (gameOver === "win" && (!bestTime || time < Number(bestTime))) {
-    localStorage.setItem(`bestMinesweeperTime:${difficulty}`, time);
+  if (gameOver === "win" && (!bestTime || time < bestTime)) {
+    setBestTime(time);
   }
 
   return (
@@ -46,7 +38,7 @@ export function EndGameModal({ gameOver, handleReset, time, difficulty }) {
                 <div>
                   Your best time is{" "}
                   <span className="font-bold text-green-800">
-                    {formatSeconds(bestTime)}
+                    {formatSeconds(bestTime ?? time)}
                   </span>
                 </div>
               </div>
