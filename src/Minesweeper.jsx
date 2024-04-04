@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import {
   makeBoard,
   isGameOver,
@@ -32,12 +32,12 @@ export function Minesweeper() {
     setBoard(makeBoard(DIFFICULTIES[dif]));
   }
 
-  function handleReset() {
+  const handleReset = useCallback(() => {
     setGameStarted(false);
     setTime(0);
     setBoard(makeBoard(DIFFICULTIES[difficulty]));
     clearInterval(timerRef.current);
-  }
+  }, [difficulty]);
 
   return (
     <div className="flex flex-col justify-center content-center border-4 rounded-xl relative">

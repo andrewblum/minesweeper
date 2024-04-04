@@ -6,15 +6,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { GearIcon } from "@radix-ui/react-icons";
+import { MenuPopoverMemo } from "./MenuPopover";
 
 export function Menubar({ flags, time, changeDifficulty, handleReset }) {
   return (
@@ -34,17 +27,7 @@ export function Menubar({ flags, time, changeDifficulty, handleReset }) {
           <div>⛳️ {flags}</div>
           <div>⏱️ {time}</div>
         </div>
-        <Popover>
-          <PopoverTrigger className="justify-self-end">
-            <GearIcon />
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-row gap-1.5">
-            <Button onClick={handleReset}>Reset Game</Button>
-            <Button onClick={() => localStorage.clear()}>
-              Clear Best Time
-            </Button>
-          </PopoverContent>
-        </Popover>
+        <MenuPopoverMemo handleReset={handleReset} />
       </div>
       <Separator />
     </>
