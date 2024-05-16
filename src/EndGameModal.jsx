@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { formatSeconds } from "./time";
+import confetti from 'canvas-confetti';
+
 
 export function EndGameModal({ gameOver, handleReset, time, difficulty }) {
   const [bestTime, setBestTime] = useLocalStorage(
@@ -36,6 +38,8 @@ export function EndGameModal({ gameOver, handleReset, time, difficulty }) {
       );
     }
   }, [gameOver, time, bestTime, prevBestTime, setBestTime]);
+
+  if (gameOver === "win"){ confetti()}
 
   return (
     <AlertDialog defaultOpen>
