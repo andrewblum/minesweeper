@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from 'react';
 
 const dispatchStorageEvent = (key, newValue) => {
-  window.dispatchEvent(new StorageEvent("storage", { key, newValue }));
+  window.dispatchEvent(new StorageEvent('storage', { key, newValue }));
 };
 
 const getItem = (key) => localStorage.getItem(key);
@@ -22,8 +22,8 @@ export const clearStorage = () => {
 };
 
 const subscribe = (callback) => {
-  window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+  window.addEventListener('storage', callback);
+  return () => window.removeEventListener('storage', callback);
 };
 
 export default function useLocalStorage(key, initialValue) {
@@ -33,7 +33,7 @@ export default function useLocalStorage(key, initialValue) {
     (arg) => {
       try {
         const nextState =
-          typeof arg === "function" ? arg(JSON.parse(store)) : arg;
+          typeof arg === 'function' ? arg(JSON.parse(store)) : arg;
 
         if (nextState === undefined || nextState === null) {
           removeItem(key);

@@ -1,7 +1,7 @@
-import "@radix-ui/themes/styles.css";
-import "./App.css";
-import { Minesweeper } from "./Minesweeper.jsx";
-import { Theme } from "@radix-ui/themes";
+import '@radix-ui/themes/styles.css';
+import './App.css';
+import { Minesweeper } from './Minesweeper.jsx';
+import { Theme } from '@radix-ui/themes';
 
 function App() {
   return (

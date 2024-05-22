@@ -19,7 +19,7 @@ export function makeBoard({ height, width }) {
   const board = Array.from(Array(height), () => new Array(width));
   for (let r = 0; r < height; r++) {
     for (let c = 0; c < width; c++) {
-      board[r][c] = "_";
+      board[r][c] = '_';
     }
   }
   return board;
@@ -52,7 +52,7 @@ export function placeBombs(r, c, board, numBombs) {
   const bombCoords = getBombCoords(board, numBombs, safeCoords);
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[0].length; c++) {
-      board[r][c] = bombCoords.has(`${r},${c}`) ? "M" : "_";
+      board[r][c] = bombCoords.has(`${r},${c}`) ? 'M' : '_';
     }
   }
   return board;
@@ -84,7 +84,7 @@ function getSafeCoords(board, r, c) {
   while (safeCoords.size < numSafe) {
     const [row, col] = [...safeCoords][
       Math.floor(Math.random() * safeCoords.size)
-    ].split(",");
+    ].split(',');
     const surroundings = getSurroundingSquares(Number(row), Number(col), board);
     const cell = surroundings[Math.floor(Math.random() * surroundings.length)];
     const coords = `${cell[0]},${cell[1]}`;
@@ -153,7 +153,7 @@ export function getSurroundingSquares(r, c, board) {
  */
 export function numMinesAround(r, c, board) {
   return getSurroundingSquares(r, c, board).reduce((acc, [x, y]) => {
-    return acc + Number(board[x][y] == "M" || board[x][y] == "MF");
+    return acc + Number(board[x][y] == 'M' || board[x][y] == 'MF');
   }, 0);
 }
 
@@ -164,12 +164,12 @@ export function numMinesAround(r, c, board) {
  * @return {void}
  */
 export function revealEmptyAreaAroundClick(r, c, board) {
-  if (board[r][c].startsWith("_")) {
+  if (board[r][c].startsWith('_')) {
     const mines = numMinesAround(r, c, board);
     if (mines > 0) {
       board[r][c] = String(mines);
     } else {
-      board[r][c] = "0";
+      board[r][c] = '0';
       for (const [x, y] of getSurroundingSquares(r, c, board)) {
         revealEmptyAreaAroundClick(x, y, board);
       }
@@ -181,11 +181,11 @@ export function isGameOver(board) {
   let won = true;
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[0].length; c++) {
-      if (board[r][c] === "X") return "lose";
-      if (board[r][c] === "_" || board[r][c] === "_F") won = false;
+      if (board[r][c] === 'X') return 'lose';
+      if (board[r][c] === '_' || board[r][c] === '_F') won = false;
     }
   }
-  return won ? "win" : null;
+  return won ? 'win' : null;
 }
 
 export function countFlagsRemaining(board, difficulty) {

@@ -1,5 +1,5 @@
-import { placeBombs, revealEmptyAreaAroundClick } from "./gameLogic.js";
-import { GameboardCell } from "./GameboardCell.jsx";
+import { placeBombs, revealEmptyAreaAroundClick } from './gameLogic.js';
+import { GameboardCell } from './GameboardCell.jsx';
 
 export function Gameboard({
   board,
@@ -12,22 +12,22 @@ export function Gameboard({
 }) {
   function handleCellClick(e, r, c, board, setBoard) {
     let boardCopy = JSON.parse(JSON.stringify(board));
-    if (!gameStarted && e.type !== "contextmenu") {
+    if (!gameStarted && e.type !== 'contextmenu') {
       boardCopy = placeBombs(r, c, boardCopy, numBombs);
       setGameStarted(true);
       timerRef.current = setInterval(() => {
         setTime((time) => time + 1);
       }, 1000);
     }
-    if (e.type === "contextmenu") {
+    if (e.type === 'contextmenu') {
       // click is a right click, place/remove a flag if able
       handlePlaceFlag(e, r, c, boardCopy);
-    } else if (boardCopy[r][c][1] === "F") {
+    } else if (boardCopy[r][c][1] === 'F') {
       // ignore left clicks on flags
       return;
-    } else if (boardCopy[r][c] === "M") {
+    } else if (boardCopy[r][c] === 'M') {
       // clicked on a bomb
-      boardCopy[r][c] = "X";
+      boardCopy[r][c] = 'X';
     } else {
       revealEmptyAreaAroundClick(r, c, boardCopy);
     }
@@ -38,8 +38,8 @@ export function Gameboard({
     e.preventDefault();
     if (board[r][c].length > 1) {
       board[r][c] = board[r][c][0];
-    } else if (board[r][c] === "_" || board[r][c] === "M") {
-      board[r][c] += "F";
+    } else if (board[r][c] === '_' || board[r][c] === 'M') {
+      board[r][c] += 'F';
     }
   }
 
@@ -62,7 +62,7 @@ export function Gameboard({
   return (
     <div
       style={{
-        display: "grid",
+        display: 'grid',
         gridTemplate: `repeat(${board.length}, 40px) / repeat(${board[0].length}, 40px)`,
       }}
     >

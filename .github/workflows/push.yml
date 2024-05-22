@@ -3,20 +3,20 @@ name: lint on push
 on:
   push:
     branches:
-        - main
+      - main
 
 jobs:
-    lint:
-        name: lint and formating check
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout 
-              uses: actions/checkout@v4
-            - name: set up node 
-              uses: actions/setup-node@v4
-            - name: install dependencies 
-              run: npm install
-            - name: run lint 
-              run: npm run lint
-            - name: format check 
-              run: npx prettier --check ./src
+  lint:
+    name: lint and formating check
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: set up node
+        uses: actions/setup-node@v4
+      - name: install dependencies
+        run: npm install
+      - name: run lint
+        run: npm run lint
+      - name: format check
+        run: npx prettier --check ./src
