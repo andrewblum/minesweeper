@@ -7,7 +7,7 @@ on:
 
 jobs:
     lint:
-        name: Lint
+        name: lint and formating check
         runs-on: ubuntu-latest
         steps:
             - name: checkout 
@@ -17,4 +17,6 @@ jobs:
             - name: install dependencies 
               run: npm install
             - name: run lint 
-              run: npm run lint   
+              run: npm run lint
+            - name: format check 
+              run: npx prettier --check ./src
