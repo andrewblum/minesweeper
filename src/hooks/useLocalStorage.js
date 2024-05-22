@@ -44,7 +44,7 @@ export default function useLocalStorage(key, initialValue) {
         console.warn(error);
       }
     },
-    [key, store]
+    [key, store],
   );
 
   useEffect(() => {

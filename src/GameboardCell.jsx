@@ -43,7 +43,7 @@ export function GameboardCell({ value, onClick }) {
           : "cursor-default",
         value === "0" || "12345678".includes(value)
           ? `bg-slate-200 ${getNumberColor(value)}`
-          : "bg-slate-300"
+          : "bg-slate-300",
       )}
       onClick={onClick}
       onContextMenu={onClick}

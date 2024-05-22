@@ -52,7 +52,7 @@ export function Gameboard({
             key={`${r},${c}`}
             value={board[r][c]}
             onClick={(e) => handleCellClick(e, r, c, board, setBoard)}
-          />
+          />,
         );
       }
     }

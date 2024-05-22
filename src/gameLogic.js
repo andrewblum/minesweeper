@@ -75,7 +75,7 @@ function getSafeCoords(board, r, c) {
   const initialSurroundings = getSurroundingSquares(
     Number(r),
     Number(c),
-    board
+    board,
   );
   initialSurroundings.forEach(([row, col]) => safeCoords.add(`${row},${col}`));
 
