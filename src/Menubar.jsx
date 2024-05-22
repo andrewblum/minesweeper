@@ -4,10 +4,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
-import { Separator } from "@/components/ui/separator";
-import { MenuPopoverMemo } from "./MenuPopover";
+import { Separator } from '@/components/ui/separator';
+import { MenuPopoverMemo } from './MenuPopover';
 
 export function Menubar({ flags, time, changeDifficulty, handleReset }) {
   return (

@@ -3,18 +3,18 @@ name: PR check
 on:
   push:
     branches:
-        - main
+      - main
 
 jobs:
-    lint:
-        name: Lint
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout 
-              uses: actions/checkout@v4
-            - name: set up node 
-              uses: actions/setup-node@v4
-            - name: install dependencies 
-              run: npm install
-            - name: run lint 
-              run: npm run lint   
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: set up node
+        uses: actions/setup-node@v4
+      - name: install dependencies
+        run: npm install
+      - name: run lint
+        run: npm run lint

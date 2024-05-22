@@ -1,18 +1,18 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from 'react';
 import {
   makeBoard,
   isGameOver,
   countFlagsRemaining,
   DIFFICULTIES,
-} from "./gameLogic.js";
-import { Menubar } from "./Menubar.jsx";
-import { Gameboard } from "./Gameboard.jsx";
-import { EndGameModal } from "./EndGameModal.jsx";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+} from './gameLogic.js';
+import { Menubar } from './Menubar.jsx';
+import { Gameboard } from './Gameboard.jsx';
+import { EndGameModal } from './EndGameModal.jsx';
+import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 export function Minesweeper() {
   const [board, setBoard] = useState(makeBoard(DIFFICULTIES.EASY));
-  const [difficulty, setDifficulty] = useState("EASY");
+  const [difficulty, setDifficulty] = useState('EASY');
   const [time, setTime] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const gameOver = isGameOver(board);

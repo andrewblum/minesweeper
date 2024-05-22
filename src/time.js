@@ -5,7 +5,7 @@ export const formatSeconds = (s) => {
   const seconds = totalSecs % 60;
 
   return [hours, minutes, seconds]
-    .map((time) => (time < 10 ? "0" + time : time))
-    .filter((time, idx) => time !== "00" || idx > 0)
-    .join(":");
+    .map((time) => (time < 10 ? '0' + time : time))
+    .filter((time, idx) => time !== '00' || idx > 0)
+    .join(':');
 };
