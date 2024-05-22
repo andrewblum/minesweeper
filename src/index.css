@@ -76,13 +76,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
-button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
-  appearance: button;
-  -webkit-appearance: button;
-  background-color: transparent;
-  background-image: none;
-}

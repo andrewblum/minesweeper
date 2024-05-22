@@ -16,8 +16,8 @@ export function MenuPopover({ handleReset }) {
 
   return (
     <Popover>
-      <PopoverTrigger className="justify-self-end">
-        <GearIcon />
+      <PopoverTrigger className="justify-self-end bg-transparent">
+        <GearIcon className="bg-transparent" />
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-4">
         <div className="text-sm text-muted-foreground">

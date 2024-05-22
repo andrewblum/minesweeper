@@ -3,7 +3,7 @@ var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var require_index_001 = __commonJS({
-  "assets/index-BGWId3qc.js"(exports, module) {
+  "assets/index-O-RwKMQK.js"(exports, module) {
     function _mergeNamespaces(n2, m2) {
       for (var i = 0; i < m2.length; i++) {
         const e = m2[i];
@@ -15894,7 +15894,7 @@ Defaulting to \`${$89eedd556c436f6a$var$DEFAULT_ORIENTATION}\`.`;
       const [medTime] = useLocalStorage("bestMinesweeperTime:MEDIUM");
       const [hardTime] = useLocalStorage("bestMinesweeperTime:HARD");
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(Popover, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(PopoverTrigger, { className: "justify-self-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GearIcon, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(PopoverTrigger, { className: "justify-self-end bg-transparent", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GearIcon, { className: "bg-transparent" }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(PopoverContent, { className: "flex flex-col gap-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-muted-foreground", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-base font-bold text-slate-900 mb-2", children: "Personal Bests" }),
@@ -17641,4 +17641,4 @@ body { background-color: var(--color-page-background); }
   }
 });
 export default require_index_001();
-//# sourceMappingURL=index-BGWId3qc.js.map
+//# sourceMappingURL=index-O-RwKMQK.js.map
